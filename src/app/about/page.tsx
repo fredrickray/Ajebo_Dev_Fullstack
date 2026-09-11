@@ -16,11 +16,11 @@ export default function AboutPage() {
       <section className="hero">
         <div className="container">
           <Reveal>
-            <p className="section-kicker">About</p>
+            <p className="section-kicker">about me</p>
             <h1>
               Backend-leaning
               <br />
-              <span>full-stack engineer</span>
+              full-stack engineer
             </h1>
             <p className="lede">
               {profile.about} {profile.aboutExtended}
@@ -119,16 +119,11 @@ export default function AboutPage() {
 
       <style jsx>{`
         .hero {
-          padding: 72px 0 56px;
-          background: var(--bg-secondary);
-          border-bottom: 1px solid var(--border);
+          padding: 48px 0 56px;
         }
         h1 {
           font-size: clamp(36px, 6vw, 56px);
           margin-bottom: 18px;
-        }
-        h1 span {
-          color: var(--primary);
         }
         .lede {
           max-width: 680px;
@@ -139,14 +134,12 @@ export default function AboutPage() {
         .path,
         .cta {
           padding: var(--section-padding) 0;
-          background: var(--bg-primary);
+          border-top: 1px solid var(--border);
         }
         .skills,
         .edu {
           padding: var(--section-padding) 0;
-          background: var(--bg-secondary);
           border-top: 1px solid var(--border);
-          border-bottom: 1px solid var(--border);
         }
         .list,
         .feed {

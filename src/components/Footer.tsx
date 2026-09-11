@@ -8,33 +8,32 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="wrap">
-        <div className="top">
+        <div className="brand">
+          <span className="mark">AD</span>
           <div>
-            <p className="name">{profile.brand}</p>
-            <p className="tag">{profile.role}</p>
-          </div>
-          <div className="links">
-            <Link href="/projects">Projects</Link>
-            <Link href="/experience">Experience</Link>
-            <Link href="/about">About</Link>
-            <Link href="/contact">Contact</Link>
-            <a href={profile.github} target="_blank" rel="noopener noreferrer">
-              GitHub
-            </a>
+            <p className="name">{profile.name}</p>
+            <p className="tag">Open to contract work, full-time roles, and hard systems problems.</p>
           </div>
         </div>
-        <div className="bottom">
-          <p>
-            &copy; {year} {profile.name}
-          </p>
-          <p className="mono">{profile.location}</p>
+        <div className="links">
+          <Link href="/contact">Contact</Link>
+          <a href={`mailto:${profile.email}`}>Email</a>
+          <a href={profile.github} target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+            LinkedIn
+          </a>
         </div>
+        <p className="copy mono">
+          © {year} {profile.name.toUpperCase()}
+        </p>
       </div>
       <style jsx>{`
         .footer {
           background: var(--bg-footer);
           color: var(--text-on-dark);
-          padding: 48px 0 24px;
+          padding: 48px 0 28px;
           border-top: 1px solid var(--border-dark);
         }
         .wrap {
@@ -42,44 +41,54 @@ export default function Footer() {
           margin: 0 auto;
           padding: 0 24px;
         }
-        .top {
+        .brand {
           display: flex;
-          justify-content: space-between;
-          gap: 24px;
-          flex-wrap: wrap;
-          padding-bottom: 28px;
-          border-bottom: 1px solid var(--border-dark);
+          gap: 14px;
+          align-items: flex-start;
+          margin-bottom: 28px;
+        }
+        .mark {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: var(--text-on-dark);
+          color: var(--bg-footer);
+          display: grid;
+          place-items: center;
+          font-size: 11px;
+          font-weight: 800;
+          flex-shrink: 0;
         }
         .name {
           font-family: var(--font-display), sans-serif;
-          font-size: 20px;
+          font-size: 18px;
           font-weight: 700;
-          margin-bottom: 6px;
+          margin-bottom: 4px;
         }
         .tag {
           color: var(--text-on-dark-muted);
           font-size: 14px;
+          max-width: 420px;
         }
         .links {
           display: flex;
           flex-wrap: wrap;
           gap: 18px;
-          align-items: center;
+          margin-bottom: 28px;
         }
         .links :global(a) {
           color: var(--text-on-dark-muted);
-          font-size: 14px;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
         }
         .links :global(a:hover) {
-          color: var(--primary);
+          color: var(--text-on-dark);
         }
-        .bottom {
-          display: flex;
-          justify-content: space-between;
-          gap: 12px;
-          flex-wrap: wrap;
-          padding-top: 18px;
-          font-size: 13px;
+        .copy {
+          font-size: 11px;
+          letter-spacing: 0.08em;
           color: var(--text-on-dark-muted);
         }
       `}</style>

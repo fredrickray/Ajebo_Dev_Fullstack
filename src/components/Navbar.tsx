@@ -15,32 +15,34 @@ export default function Navbar() {
 
   const links = [
     { href: '/', label: 'Home' },
-    { href: '/projects', label: 'Projects' },
-    { href: '/experience', label: 'Experience' },
     { href: '/about', label: 'About' },
-    { href: '/contact', label: 'Contact' },
+    { href: '/projects', label: 'Work' },
+    { href: '/experience', label: 'Experience' },
   ];
 
   return (
     <>
       <nav className="nav">
         <div className="wrap">
-          <Link href="/" className="logo">
-            <span className="mark mono">AD</span>
-            <span>{profile.brand}</span>
+          <Link href="/" className="logo" aria-label={profile.brand}>
+            <span className="mark">AD</span>
           </Link>
 
           <div className={`links ${menuOpen ? 'on' : ''}`}>
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className={pathname === l.href || (l.href !== '/' && pathname.startsWith(l.href)) ? 'active' : ''}
-                onClick={() => setMenuOpen(false)}
-              >
-                {l.label}
-              </Link>
-            ))}
+            {links.map((l) => {
+              const active =
+                pathname === l.href || (l.href !== '/' && pathname.startsWith(l.href));
+              return (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className={active ? 'active' : ''}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {l.label}
+                </Link>
+              );
+            })}
             <button
               type="button"
               className="mobile-resume"
@@ -54,18 +56,39 @@ export default function Navbar() {
           </div>
 
           <div className="actions">
+            <a
+              className="chip hide-sm"
+              href={`mailto:${profile.email}`}
+              title="Email"
+              aria-label="Email"
+            >
+              EM
+            </a>
+            <a
+              className="chip hide-sm"
+              href={profile.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="GitHub"
+              aria-label="GitHub"
+            >
+              GH
+            </a>
+            <a
+              className="chip hide-sm"
+              href={profile.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="LinkedIn"
+              aria-label="LinkedIn"
+            >
+              LI
+            </a>
             <button type="button" className="theme mono" onClick={toggleTheme} aria-label="Toggle theme">
               {theme === 'light' ? 'Dark' : 'Light'}
             </button>
-            <button
-              type="button"
-              className="btn btn-secondary hide-sm"
-              onClick={() => setResumeOpen(true)}
-            >
-              Resume
-            </button>
-            <Link href="/contact" className="btn btn-primary hide-sm">
-              Let&apos;s talk
+            <Link href="/contact" className="btn btn-primary hide-sm contact">
+              Contact
             </Link>
             <button type="button" className="menu" onClick={() => setMenuOpen(!menuOpen)}>
               Menu
@@ -79,81 +102,110 @@ export default function Navbar() {
             inset: 0 0 auto;
             z-index: 1000;
             height: var(--nav-height);
-            background: var(--navbar-bg);
-            backdrop-filter: blur(14px);
-            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
           }
           .wrap {
-            max-width: var(--container-max);
+            width: min(100%, 1040px);
             margin: 0 auto;
-            padding: 0 24px;
-            height: 100%;
+            height: 54px;
+            padding: 0 14px 0 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
+            gap: 12px;
+            background: var(--navbar-bg);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            backdrop-filter: blur(12px);
+            box-shadow: var(--shadow-card);
           }
           .logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-family: var(--font-display), sans-serif;
-            font-weight: 700;
-            font-size: 15px;
-            color: var(--text-primary);
+            display: grid;
+            place-items: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--btn-ink);
+            flex-shrink: 0;
           }
           .logo:hover {
-            color: var(--text-primary);
+            color: var(--btn-ink);
           }
           .mark {
+            font-family: var(--font-display), sans-serif;
             font-size: 11px;
-            letter-spacing: 0.06em;
-            color: var(--btn-ink);
-            background: var(--primary);
-            padding: 6px 8px;
-            border-radius: var(--radius-sm);
+            font-weight: 700;
+            letter-spacing: 0.04em;
           }
           .links {
             display: flex;
-            gap: 22px;
+            gap: 4px;
             align-items: center;
           }
           .links :global(a),
           .mobile-resume {
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
             color: var(--text-secondary);
             background: none;
             border: none;
             cursor: pointer;
             font-family: inherit;
-            padding: 0;
+            padding: 8px 12px;
+            border-radius: 999px;
           }
-          .links :global(a.active),
+          .links :global(a.active) {
+            background: var(--accent-soft);
+            color: var(--accent);
+          }
           .links :global(a:hover),
           .mobile-resume:hover {
-            color: var(--primary);
+            color: var(--text-primary);
           }
           .actions {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
+          }
+          .chip {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: grid;
+            place-items: center;
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--text-secondary);
+            background: var(--bg-card);
+          }
+          .chip:hover {
+            color: var(--text-primary);
+            border-color: var(--border-strong);
           }
           .theme {
             border: none;
             background: none;
             color: var(--text-muted);
-            font-size: 11px;
+            font-size: 10px;
             letter-spacing: 0.06em;
             text-transform: uppercase;
             cursor: pointer;
-            padding: 8px;
+            padding: 6px;
+          }
+          .contact {
+            padding: 9px 14px;
           }
           .menu {
             display: none;
             border: 1px solid var(--border-strong);
             background: var(--bg-card);
-            border-radius: var(--radius-sm);
+            border-radius: 999px;
             padding: 8px 12px;
             font-size: 12px;
             font-weight: 700;
@@ -162,21 +214,22 @@ export default function Navbar() {
           .mobile-resume {
             display: none;
           }
-          @media (max-width: 920px) {
+          @media (max-width: 900px) {
             .links {
               position: fixed;
-              top: var(--nav-height);
-              left: 0;
-              right: 0;
+              top: calc(var(--nav-height) + 8px);
+              left: 16px;
+              right: 16px;
               background: var(--bg-card);
-              border-bottom: 1px solid var(--border);
+              border: 1px solid var(--border);
+              border-radius: var(--radius);
               flex-direction: column;
-              align-items: flex-start;
-              padding: 20px 24px;
-              gap: 16px;
+              align-items: stretch;
+              padding: 12px;
+              gap: 4px;
               opacity: 0;
               visibility: hidden;
-              transform: translateY(-8px);
+              transform: translateY(-6px);
               transition: all 0.2s ease;
             }
             .links.on {

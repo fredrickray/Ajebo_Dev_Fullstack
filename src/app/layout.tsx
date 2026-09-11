@@ -1,20 +1,26 @@
 import type { Metadata } from 'next';
-import { Sora, Source_Sans_3, IBM_Plex_Mono } from 'next/font/google';
+import { Outfit, Figtree, Caveat, IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
 import { Navbar, Footer } from '@/components';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { profile } from '@/data/profile';
 
-const display = Sora({
+const display = Outfit({
   variable: '--font-display',
   subsets: ['latin'],
   weight: ['500', '600', '700'],
 });
 
-const body = Source_Sans_3({
+const body = Figtree({
   variable: '--font-body',
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
+});
+
+const script = Caveat({
+  variable: '--font-script',
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
 });
 
 const mono = IBM_Plex_Mono({
@@ -46,7 +52,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${display.variable} ${body.variable} ${mono.variable} ${body.className}`}>
+      <body
+        className={`${display.variable} ${body.variable} ${script.variable} ${mono.variable} ${body.className}`}
+      >
         <ThemeProvider>
           <Navbar />
           <main style={{ paddingTop: 'var(--nav-height)', minHeight: '100vh' }}>{children}</main>

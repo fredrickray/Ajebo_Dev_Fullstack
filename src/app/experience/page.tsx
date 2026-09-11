@@ -11,11 +11,11 @@ export default function ExperiencePage() {
       <section className="hero">
         <div className="container">
           <Reveal>
-            <p className="section-kicker">Experience</p>
+            <p className="section-kicker">experience</p>
             <h1>
               APIs, data models,
               <br />
-              <span>and team leadership</span>
+              and team leadership
             </h1>
             <p className="lede">
               Production backends, pipelines, and platforms — with engineering lead experience at
@@ -92,16 +92,11 @@ export default function ExperiencePage() {
 
       <style jsx>{`
         .hero {
-          padding: 72px 0 52px;
-          background: var(--bg-secondary);
-          border-bottom: 1px solid var(--border);
+          padding: 48px 0 52px;
         }
         h1 {
           font-size: clamp(34px, 5vw, 52px);
           margin-bottom: 14px;
-        }
-        h1 span {
-          color: var(--primary);
         }
         .lede {
           max-width: 520px;
@@ -111,6 +106,7 @@ export default function ExperiencePage() {
         .approach,
         .cta {
           padding: var(--section-padding) 0;
+          border-top: 1px solid var(--border);
         }
         .card {
           background: var(--bg-card);
@@ -183,9 +179,7 @@ export default function ExperiencePage() {
           color: var(--text-muted);
         }
         .approach {
-          background: var(--bg-secondary);
           border-top: 1px solid var(--border);
-          border-bottom: 1px solid var(--border);
         }
         .principles {
           margin-top: 24px;
