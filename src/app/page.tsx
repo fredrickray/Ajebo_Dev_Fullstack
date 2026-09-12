@@ -190,6 +190,7 @@ export default function Home() {
           font-size: clamp(40px, 9vw, 84px);
           color: var(--text-primary);
           margin-bottom: 18px;
+          animation: name-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
         .sticker {
           position: absolute;
@@ -200,38 +201,45 @@ export default function Home() {
           box-shadow: 0 6px 16px rgba(17, 17, 17, 0.08);
           white-space: nowrap;
           z-index: 2;
+          animation:
+            sticker-settle 0.65s cubic-bezier(0.22, 1, 0.36, 1) both,
+            sticker-drift 5.5s ease-in-out 0.9s infinite;
         }
         .a {
           top: 8px;
           left: 0;
           background: var(--sticker-a);
           color: #1a2e1c;
-          transform: rotate(-6deg);
+          --sticker-rot: -6deg;
+          animation-delay: 0.05s, 0.9s;
         }
         .b {
           top: 18px;
           right: 0;
           background: var(--sticker-b);
           color: #3b2a16;
-          transform: rotate(5deg);
+          --sticker-rot: 5deg;
+          animation-delay: 0.15s, 1.1s;
         }
         .c {
           left: -8px;
           top: 52%;
           background: var(--sticker-c);
           color: #3b3210;
-          transform: rotate(-8deg);
+          --sticker-rot: -8deg;
           font-size: 11px;
           letter-spacing: 0.04em;
+          animation-delay: 0.25s, 1.3s;
         }
         .d {
           right: -4px;
           top: 48%;
           background: var(--sticker-d);
           color: #4a2030;
-          transform: rotate(7deg);
+          --sticker-rot: 7deg;
           font-size: 11px;
           letter-spacing: 0.04em;
+          animation-delay: 0.35s, 1.5s;
         }
         .availability {
           display: inline-flex;
@@ -247,6 +255,13 @@ export default function Home() {
           height: 8px;
           border-radius: 50%;
           background: var(--accent);
+          animation: pulse-dot 2.2s ease-in-out infinite;
+        }
+        .cta {
+          transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .cta:active {
+          transform: scale(0.97);
         }
         .lede {
           max-width: 540px;
@@ -325,6 +340,13 @@ export default function Home() {
           min-height: 220px;
           display: flex;
           flex-direction: column;
+          transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+            box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .card:hover {
+          transform: translateY(-4px);
+          border-color: var(--border-strong);
+          box-shadow: 0 16px 36px rgba(17, 17, 17, 0.1);
         }
         .card-top {
           display: flex;
@@ -419,8 +441,8 @@ export default function Home() {
           .sticker {
             position: static;
             display: inline-block;
-            transform: none;
             margin: 4px;
+            animation: sticker-settle 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
           }
           .stage {
             padding-top: 12px;
@@ -429,11 +451,11 @@ export default function Home() {
           .b,
           .c,
           .d {
-            transform: rotate(-2deg);
+            --sticker-rot: -2deg;
           }
           .b,
           .d {
-            transform: rotate(2deg);
+            --sticker-rot: 2deg;
           }
         }
       `}</style>

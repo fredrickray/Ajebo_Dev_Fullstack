@@ -3,23 +3,29 @@
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import type { Project } from '@/data/projects';
+import { getSystemDesign } from '@/data/systemDesigns';
+import ArchFlow from '@/components/ArchFlow';
+import ProjectMediaGallery from '@/components/ProjectMediaGallery';
 
 export default function ProjectDetail({ project }: { project: Project }) {
+  const design = getSystemDesign(project.slug);
+
   const sections = [
-    { id: 'layers', label: 'Stack layers', index: '01' },
-    { id: 'architecture', label: 'Architecture', index: '02' },
+    { id: 'media', label: 'Walkthrough', index: '01' },
+    { id: 'layers', label: 'Stack layers', index: '02' },
+    { id: 'architecture', label: 'Architecture', index: '03' },
     ...(project.services?.length
-      ? [{ id: 'services', label: 'Services', index: '03' }]
+      ? [{ id: 'services', label: 'Services', index: '04' }]
       : []),
     {
       id: 'challenges',
       label: 'Challenges',
-      index: project.services?.length ? '04' : '03',
+      index: project.services?.length ? '05' : '04',
     },
     {
       id: 'tradeoffs',
       label: 'Trade-offs',
-      index: project.services?.length ? '05' : '04',
+      index: project.services?.length ? '06' : '05',
     },
   ];
 
@@ -122,13 +128,26 @@ export default function ProjectDetail({ project }: { project: Project }) {
 
         <main className="scroll" ref={scrollRef}>
           <section
+            id="media"
+            ref={(el) => {
+              sectionRefs.current.media = el;
+            }}
+          >
+            <h2>
+              <span className="mono">01</span> Walkthrough
+            </h2>
+            <p className="section-lede">One short demo and two screens from the product.</p>
+            <ProjectMediaGallery title={project.title} media={project.media} />
+          </section>
+
+          <section
             id="layers"
             ref={(el) => {
               sectionRefs.current.layers = el;
             }}
           >
             <h2>
-              <span className="mono">01</span> Stack layers
+              <span className="mono">02</span> Stack layers
             </h2>
             <div className="layers">
               {project.layers.map((layer) => (
@@ -151,16 +170,23 @@ export default function ProjectDetail({ project }: { project: Project }) {
             }}
           >
             <h2>
-              <span className="mono">02</span> Architecture
+              <span className="mono">03</span> Architecture
             </h2>
-            <div className="arch">
-              {project.architecture.map((node, i) => (
-                <div key={node} className="node">
-                  <span className="mono">{String(i + 1).padStart(2, '0')}</span>
-                  <strong>{node}</strong>
-                </div>
-              ))}
-            </div>
+            {design ? (
+              <>
+                <ArchFlow flow={design.flow} />
+                <p className="caption">{design.flow.caption}</p>
+              </>
+            ) : (
+              <div className="arch">
+                {project.architecture.map((node, i) => (
+                  <div key={node} className="node">
+                    <span className="mono">{String(i + 1).padStart(2, '0')}</span>
+                    <strong>{node}</strong>
+                  </div>
+                ))}
+              </div>
+            )}
             <ul className="highlights">
               {project.highlights.map((h) => (
                 <li key={h}>{h}</li>
@@ -176,7 +202,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
               }}
             >
               <h2>
-                <span className="mono">03</span> Services
+                <span className="mono">04</span> Services
               </h2>
               <div className="services">
                 {project.services.map((svc) => (
@@ -204,7 +230,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
             }}
           >
             <h2>
-              <span className="mono">{project.services?.length ? '04' : '03'}</span> Engineering
+              <span className="mono">{project.services?.length ? '05' : '04'}</span> Engineering
               challenges
             </h2>
             <div className="list">
@@ -227,7 +253,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
             }}
           >
             <h2>
-              <span className="mono">{project.services?.length ? '05' : '04'}</span> Trade-offs &
+              <span className="mono">{project.services?.length ? '06' : '05'}</span> Trade-offs &
               decisions
             </h2>
             <div className="trades">
@@ -272,8 +298,7 @@ export default function ProjectDetail({ project }: { project: Project }) {
 
       <style jsx>{`
         .head {
-          padding: 64px 0 40px;
-          background: var(--bg-secondary);
+          padding: 48px 0 40px;
           border-bottom: 1px solid var(--border);
         }
         .crumb {
@@ -282,10 +307,10 @@ export default function ProjectDetail({ project }: { project: Project }) {
           margin-bottom: 18px;
         }
         .crumb :global(a) {
-          color: var(--primary);
+          color: var(--accent);
         }
         .cat {
-          color: var(--primary);
+          color: var(--text-muted);
           font-size: 11px;
           letter-spacing: 0.1em;
           text-transform: uppercase;
@@ -320,14 +345,14 @@ export default function ProjectDetail({ project }: { project: Project }) {
         .layout {
           display: grid;
           grid-template-columns: 200px 1fr;
-          gap: 32px;
-          padding-top: 40px;
-          padding-bottom: 80px;
+          gap: 28px;
+          padding-top: 36px;
+          padding-bottom: 72px;
           align-items: start;
         }
         .side {
           position: sticky;
-          top: calc(var(--nav-height) + 24px);
+          top: calc(var(--nav-height) + 16px);
         }
         .side-label {
           font-size: 10px;
@@ -336,52 +361,70 @@ export default function ProjectDetail({ project }: { project: Project }) {
           color: var(--text-muted);
           margin-bottom: 12px;
         }
+        .side nav {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
         .side button {
           display: flex;
           align-items: center;
           gap: 10px;
-          width: 100%;
           text-align: left;
           border: none;
-          background: none;
-          padding: 10px 0;
-          border-bottom: 1px solid var(--border);
-          color: var(--text-secondary);
+          background: transparent;
+          color: var(--text-muted);
+          font: inherit;
           font-size: 13px;
           font-weight: 600;
+          padding: 8px 10px;
+          border-radius: 10px;
           cursor: pointer;
-          font-family: inherit;
+          transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
         }
         .side button .mono {
-          color: var(--text-muted);
-          font-size: 11px;
+          font-size: 10px;
+          color: inherit;
+        }
+        .side button:hover {
+          color: var(--text-primary);
+          background: var(--bg-card);
         }
         .side button.on {
           color: var(--text-primary);
+          background: var(--bg-card);
+          border: 1px solid var(--border);
+          transform: translateX(2px);
         }
-        .side button.on .mono {
-          color: var(--primary);
+        .side button.passed {
+          color: var(--text-secondary);
         }
         .scroll {
-          max-height: calc(100vh - var(--nav-height) - 80px);
+          max-height: calc(100vh - var(--nav-height) - 48px);
           overflow-y: auto;
           padding-right: 8px;
+          scroll-behavior: smooth;
         }
         section {
           padding-bottom: 48px;
-          margin-bottom: 24px;
+          margin-bottom: 12px;
           border-bottom: 1px solid var(--border);
         }
         h2 {
           font-size: 22px;
-          margin-bottom: 20px;
+          margin-bottom: 16px;
           display: flex;
-          align-items: center;
-          gap: 12px;
+          align-items: baseline;
+          gap: 10px;
         }
         h2 .mono {
-          color: var(--primary);
-          font-size: 13px;
+          font-size: 12px;
+          color: var(--accent);
+        }
+        .section-lede {
+          color: var(--text-secondary);
+          font-size: 14px;
+          margin: -6px 0 16px;
         }
         .layers {
           display: grid;
@@ -390,11 +433,11 @@ export default function ProjectDetail({ project }: { project: Project }) {
         .layer {
           background: var(--bg-card);
           border: 1px solid var(--border);
-          border-radius: var(--radius);
-          padding: 18px;
+          border-radius: 14px;
+          padding: 16px 18px;
         }
         .layer h3 {
-          font-size: 15px;
+          font-size: 14px;
           margin-bottom: 10px;
         }
         .chips {
@@ -404,59 +447,67 @@ export default function ProjectDetail({ project }: { project: Project }) {
         }
         .chips span {
           font-size: 12px;
-          border: 1px solid var(--border);
-          padding: 4px 8px;
-          color: var(--text-muted);
+          padding: 5px 9px;
+          border-radius: 999px;
+          background: var(--bg-secondary);
+          color: var(--text-secondary);
         }
         .arch {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-          gap: 10px;
-          margin-bottom: 20px;
+          gap: 8px;
+          margin-bottom: 16px;
         }
         .node {
           background: var(--bg-card);
           border: 1px solid var(--border);
-          border-radius: var(--radius);
+          border-radius: 12px;
           padding: 14px;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
         }
         .node .mono {
-          display: block;
-          color: var(--primary);
-          font-size: 11px;
-          margin-bottom: 6px;
+          font-size: 10px;
+          color: var(--accent);
         }
-        .node strong {
+        .caption {
+          margin-top: 14px;
+          color: var(--text-secondary);
           font-size: 14px;
+          line-height: 1.7;
+          max-width: 640px;
         }
         .highlights {
+          margin-top: 18px;
           list-style: none;
         }
         .highlights li {
           position: relative;
-          padding-left: 14px;
-          margin-bottom: 10px;
+          padding: 8px 0 8px 16px;
           color: var(--text-secondary);
+          font-size: 14px;
+          border-bottom: 1px solid var(--border);
         }
         .highlights li::before {
           content: '';
           position: absolute;
           left: 0;
-          top: 9px;
-          width: 5px;
-          height: 5px;
-          background: var(--primary);
+          top: 15px;
+          width: 6px;
+          height: 6px;
           border-radius: 50%;
+          background: var(--accent);
         }
         .services {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 12px;
+          gap: 10px;
         }
         .svc {
           background: var(--bg-card);
           border: 1px solid var(--border);
-          border-radius: var(--radius);
+          border-radius: 14px;
           padding: 18px;
         }
         .svc h3 {
@@ -467,24 +518,26 @@ export default function ProjectDetail({ project }: { project: Project }) {
           color: var(--text-secondary);
           font-size: 13px;
           margin-bottom: 12px;
+          line-height: 1.6;
         }
         .svc-link {
           display: inline-block;
           margin-top: 12px;
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 700;
-          color: var(--primary);
+          color: var(--accent);
         }
         .list .row {
           display: grid;
           grid-template-columns: 40px 1fr;
-          gap: 14px;
+          gap: 12px;
           padding: 16px 0;
           border-bottom: 1px solid var(--border);
         }
         .list .mono {
-          color: var(--primary);
-          padding-top: 3px;
+          color: var(--accent);
+          padding-top: 4px;
+          font-size: 11px;
         }
         .list h3 {
           font-size: 16px;
@@ -493,16 +546,17 @@ export default function ProjectDetail({ project }: { project: Project }) {
         .list p {
           color: var(--text-secondary);
           font-size: 14px;
+          line-height: 1.65;
         }
         .trades {
           display: grid;
-          gap: 12px;
+          gap: 10px;
         }
         .trade {
           background: var(--bg-card);
           border: 1px solid var(--border);
-          border-radius: var(--radius);
-          padding: 18px;
+          border-radius: 14px;
+          padding: 16px 18px;
         }
         .pair {
           display: flex;
@@ -512,18 +566,19 @@ export default function ProjectDetail({ project }: { project: Project }) {
           margin-bottom: 8px;
         }
         .pair .mono {
+          font-size: 10px;
           color: var(--text-muted);
-          font-size: 11px;
         }
         .trade p {
           color: var(--text-secondary);
           font-size: 14px;
+          line-height: 1.65;
         }
         .cta {
           display: flex;
           flex-wrap: wrap;
           gap: 10px;
-          padding-top: 8px;
+          padding: 28px 0 12px;
         }
         @media (max-width: 900px) {
           .layout {
@@ -531,6 +586,10 @@ export default function ProjectDetail({ project }: { project: Project }) {
           }
           .side {
             position: static;
+          }
+          .side nav {
+            flex-direction: row;
+            flex-wrap: wrap;
           }
           .scroll {
             max-height: none;

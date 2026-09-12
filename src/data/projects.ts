@@ -6,6 +6,12 @@ export type ProjectService = {
   github: string;
 };
 
+/** One short demo video + two screenshots (paths under /public). */
+export type ProjectMedia = {
+  video?: string;
+  screenshots: [string, string];
+};
+
 export type Project = {
   id: number;
   slug: string;
@@ -18,6 +24,7 @@ export type Project = {
   github: string;
   live?: string;
   repos?: { label: string; url: string }[];
+  media?: ProjectMedia;
   layers: { label: string; items: string[] }[];
   architecture: string[];
   challenges: { title: string; description: string }[];
@@ -40,6 +47,13 @@ export const projects: Project[] = [
     featured: true,
     github: 'https://github.com/fredrickray/OpenRDB-Studio',
     live: 'https://open-rdb-atlas.vercel.app',
+    media: {
+      video: '/projects/openrdb-studio/demo.mp4',
+      screenshots: [
+        '/projects/openrdb-studio/shot-1.jpg',
+        '/projects/openrdb-studio/shot-2.jpg',
+      ],
+    },
     layers: [
       { label: 'Interface', items: ['React', 'TypeScript', 'SQL editor UX'] },
       { label: 'Native core', items: ['Rust', 'Tauri', 'Tokio'] },
@@ -109,6 +123,10 @@ export const projects: Project[] = [
       { label: 'API', url: 'https://github.com/fredrickray/MarketLens_API' },
       { label: 'ML', url: 'https://github.com/fredrickray/MarketLens_ML' },
     ],
+    media: {
+      video: '/projects/marketlens/demo.mp4',
+      screenshots: ['/projects/marketlens/shot-1.jpg', '/projects/marketlens/shot-2.jpg'],
+    },
     layers: [
       { label: 'Interface', items: ['React', 'Decision dashboards'] },
       { label: 'API', items: ['FastAPI', 'Typed contracts', 'OpenAPI'] },
@@ -178,6 +196,10 @@ export const projects: Project[] = [
       { label: 'Mobile', url: 'https://github.com/fredrickray/propspacex-mobile' },
       { label: 'Gateway', url: 'https://github.com/fredrickray/propspacex-api-gateway' },
     ],
+    media: {
+      video: '/projects/propspacex/demo.mp4',
+      screenshots: ['/projects/propspacex/shot-1.jpg', '/projects/propspacex/shot-2.jpg'],
+    },
     layers: [
       { label: 'Clients', items: ['React web', 'React Native mobile'] },
       { label: 'Services', items: ['Gateway', 'User', 'Property', 'Media', 'Mail', 'Payments'] },
@@ -289,6 +311,10 @@ export const projects: Project[] = [
       { label: 'App', url: 'https://github.com/fredrickray/EchoLoc' },
       { label: 'API', url: 'https://github.com/fredrickray/EchoLoc_Api' },
     ],
+    media: {
+      video: '/projects/echoloc/demo.mp4',
+      screenshots: ['/projects/echoloc/shot-1.jpg', '/projects/echoloc/shot-2.jpg'],
+    },
     layers: [
       { label: 'Mobile', items: ['Expo', 'React Native', 'Maps', 'Chat'] },
       { label: 'Realtime', items: ['Socket.IO', 'Timed sessions'] },
