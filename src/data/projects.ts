@@ -23,6 +23,7 @@ export type Project = {
   featured: boolean;
   github: string;
   live?: string;
+  logo?: string;
   repos?: { label: string; url: string }[];
   media?: ProjectMedia;
   layers: { label: string; items: string[] }[];
@@ -47,6 +48,7 @@ export const projects: Project[] = [
     featured: true,
     github: 'https://github.com/fredrickray/OpenRDB-Studio',
     live: 'https://open-rdb-atlas.vercel.app',
+    logo: '/projects/openrdb-studio/logo.png',
     media: {
       video: '/projects/openrdb-studio/demo.mp4',
       screenshots: [
@@ -118,6 +120,7 @@ export const projects: Project[] = [
     featured: true,
     github: 'https://github.com/fredrickray/MarketLens_UI',
     live: 'https://market-lens-five.vercel.app',
+    logo: '/projects/marketlens/logo.svg',
     repos: [
       { label: 'UI', url: 'https://github.com/fredrickray/MarketLens_UI' },
       { label: 'API', url: 'https://github.com/fredrickray/MarketLens_API' },
@@ -191,6 +194,7 @@ export const projects: Project[] = [
     tags: ['Node.js', 'gRPC', 'React', 'MongoDB', 'PostgreSQL', 'Ethereum'],
     featured: true,
     github: 'https://github.com/fredrickray/propspacex-api-gateway',
+    logo: '/projects/propspacex/logo.svg',
     repos: [
       { label: 'Web', url: 'https://github.com/fredrickray/propspacex-web' },
       { label: 'Mobile', url: 'https://github.com/fredrickray/propspacex-mobile' },
@@ -307,6 +311,7 @@ export const projects: Project[] = [
     tags: ['Expo', 'React Native', 'Socket.IO', 'Node.js', 'Auth'],
     featured: true,
     github: 'https://github.com/fredrickray/EchoLoc',
+    logo: '/projects/echoloc/logo.svg',
     repos: [
       { label: 'App', url: 'https://github.com/fredrickray/EchoLoc' },
       { label: 'API', url: 'https://github.com/fredrickray/EchoLoc_Api' },
