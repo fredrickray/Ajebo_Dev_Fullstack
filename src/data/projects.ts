@@ -52,8 +52,8 @@ export const projects: Project[] = [
     media: {
       video: '/projects/openrdb-studio/demo.mp4',
       screenshots: [
-        '/projects/openrdb-studio/shot-1.jpg',
-        '/projects/openrdb-studio/shot-2.jpg',
+        '/projects/openrdb-studio/shot-1.png',
+        '/projects/openrdb-studio/shot-2.png',
       ],
     },
     layers: [
@@ -128,7 +128,7 @@ export const projects: Project[] = [
     ],
     media: {
       video: '/projects/marketlens/demo.mp4',
-      screenshots: ['/projects/marketlens/shot-1.jpg', '/projects/marketlens/shot-2.jpg'],
+      screenshots: ['/projects/marketlens/shot-1.png', '/projects/marketlens/shot-2.png'],
     },
     layers: [
       { label: 'Interface', items: ['React', 'Decision dashboards'] },
@@ -202,7 +202,7 @@ export const projects: Project[] = [
     ],
     media: {
       video: '/projects/propspacex/demo.mp4',
-      screenshots: ['/projects/propspacex/shot-1.jpg', '/projects/propspacex/shot-2.jpg'],
+      screenshots: ['/projects/propspacex/shot-1.png', '/projects/propspacex/shot-2.png'],
     },
     layers: [
       { label: 'Clients', items: ['React web', 'React Native mobile'] },
@@ -318,7 +318,7 @@ export const projects: Project[] = [
     ],
     media: {
       video: '/projects/echoloc/demo.mp4',
-      screenshots: ['/projects/echoloc/shot-1.jpg', '/projects/echoloc/shot-2.jpg'],
+      screenshots: ['/projects/echoloc/shot-1.png', '/projects/echoloc/shot-2.png'],
     },
     layers: [
       { label: 'Mobile', items: ['Expo', 'React Native', 'Maps', 'Chat'] },
