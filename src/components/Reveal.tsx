@@ -36,13 +36,35 @@ export default function Reveal({
   return (
     <div
       ref={ref}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? 'none' : 'translateY(16px)',
-        transition: `opacity 0.55s ease ${delay}ms, transform 0.55s ease ${delay}ms`,
-      }}
+      className={visible ? 'reveal on' : 'reveal'}
+      style={{ transitionDelay: `${delay}ms` }}
     >
       {children}
+      <style jsx>{`
+        .reveal {
+          opacity: 0;
+          transform: translateY(18px) scale(0.985);
+          filter: blur(4px);
+          transition:
+            opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+            filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+          will-change: opacity, transform, filter;
+        }
+        .reveal.on {
+          opacity: 1;
+          transform: none;
+          filter: none;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .reveal {
+            opacity: 1;
+            transform: none;
+            filter: none;
+            transition: none;
+          }
+        }
+      `}</style>
     </div>
   );
 }
