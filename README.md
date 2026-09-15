@@ -20,4 +20,6 @@ npm run dev
 
 Resume: `public/resume.pdf`
 
-**Look:** Navy + cyan control plane (Sora + Source Sans 3) — distinct from the copper backend portfolio.
+**Design 3 (current):** Clean canvas — artboard grid, pill nav, sticker accents, matrix name. Guided by [iamthecode.xyz](https://www.iamthecode.xyz/) (not a clone).
+
+Previous: Design 1 navy/cyan · Design 2 type forge.

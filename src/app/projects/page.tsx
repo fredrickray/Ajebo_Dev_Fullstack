@@ -17,14 +17,14 @@ export default function ProjectsPage() {
       <section className="hero">
         <div className="container">
           <Reveal>
-            <p className="section-kicker">Projects</p>
+            <p className="section-kicker">explore my work</p>
             <h1>
               Systems, tools,
               <br />
-              <span>ML & mobile</span>
+              ML &amp; mobile
             </h1>
             <p className="lede">
-              Backend-heavy products with real interfaces — desktop, web, and React Native.
+              Case studies with architecture, challenges, trade-offs — plus live demos and GitHub.
             </p>
           </Reveal>
           <div className="filters">
@@ -45,17 +45,34 @@ export default function ProjectsPage() {
       <section className="list">
         <div className="container grid">
           {filtered.map((p, i) => (
-            <Reveal key={p.slug} delay={i * 50}>
-              <Link href={`/projects/${p.slug}`} className="card">
-                <span className="mono cat">{p.category}</span>
-                <h2>{p.title}</h2>
+            <Reveal key={p.slug} delay={i * 40}>
+              <article className="card">
+                <div className="top">
+                  <span className="mono cat">{p.category}</span>
+                  <div className="links">
+                    {p.live && (
+                      <a href={p.live} target="_blank" rel="noopener noreferrer">
+                        Live
+                      </a>
+                    )}
+                    <a href={p.github} target="_blank" rel="noopener noreferrer">
+                      GitHub
+                    </a>
+                  </div>
+                </div>
+                <h2>
+                  <Link href={`/projects/${p.slug}`}>{p.title}</Link>
+                </h2>
                 <p>{p.description}</p>
                 <div className="tags">
                   {p.tags.map((t) => (
                     <span key={t}>{t}</span>
                   ))}
                 </div>
-              </Link>
+                <Link href={`/projects/${p.slug}`} className="btn btn-secondary btn-sm">
+                  Case study
+                </Link>
+              </article>
             </Reveal>
           ))}
         </div>
@@ -63,21 +80,16 @@ export default function ProjectsPage() {
 
       <style jsx>{`
         .hero {
-          padding: 72px 0 40px;
-          background: var(--bg-secondary);
-          border-bottom: 1px solid var(--border);
+          padding: 40px 0 36px;
         }
         h1 {
           font-size: clamp(36px, 5vw, 52px);
-          margin-bottom: 14px;
-        }
-        h1 span {
-          color: var(--primary);
+          margin-bottom: 12px;
         }
         .lede {
           max-width: 520px;
           color: var(--text-secondary);
-          margin-bottom: 24px;
+          margin-bottom: 22px;
         }
         .filters {
           display: flex;
@@ -88,8 +100,8 @@ export default function ProjectsPage() {
           border: 1px solid var(--border-strong);
           background: transparent;
           color: var(--text-secondary);
-          border-radius: 999px;
-          padding: 8px 14px;
+          border-radius: var(--radius-sm);
+          padding: 8px 12px;
           font-size: 13px;
           font-weight: 600;
           cursor: pointer;
@@ -107,49 +119,60 @@ export default function ProjectsPage() {
         .grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 14px;
+          gap: 12px;
         }
         .card {
-          display: block;
           background: var(--bg-card);
           border: 1px solid var(--border);
           border-radius: var(--radius);
-          padding: 26px;
-          color: inherit;
-          transition: transform 0.25s ease, box-shadow 0.25s ease;
+          padding: 24px;
         }
-        .card:hover {
-          transform: translateY(-3px);
-          box-shadow: var(--shadow-card);
-          color: inherit;
+        .top {
+          display: flex;
+          justify-content: space-between;
+          gap: 12px;
+          margin-bottom: 10px;
         }
         .cat {
           font-size: 11px;
           letter-spacing: 0.08em;
           text-transform: uppercase;
           color: var(--primary);
-          display: block;
-          margin-bottom: 10px;
+        }
+        .links {
+          display: flex;
+          gap: 12px;
+        }
+        .links a {
+          font-size: 12px;
+          font-weight: 700;
+          color: var(--text-muted);
+        }
+        .links a:hover {
+          color: var(--primary);
         }
         h2 {
           font-size: 24px;
           margin-bottom: 10px;
         }
+        h2 :global(a):hover {
+          color: var(--primary);
+        }
         .card p {
           color: var(--text-secondary);
           font-size: 14px;
           line-height: 1.65;
+          margin-bottom: 14px;
         }
         .tags {
           display: flex;
           flex-wrap: wrap;
           gap: 6px;
-          margin-top: 16px;
+          margin-bottom: 16px;
         }
         .tags span {
           font-size: 11px;
           border: 1px solid var(--border);
-          border-radius: 999px;
           padding: 4px 8px;
           color: var(--text-muted);
         }

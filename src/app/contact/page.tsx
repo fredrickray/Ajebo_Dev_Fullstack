@@ -41,11 +41,11 @@ export default function ContactPage() {
       <div className="container layout">
         <Reveal>
           <div>
-            <p className="section-kicker">Contact</p>
+            <p className="section-kicker">let&apos;s talk</p>
             <h1>
               Let&apos;s build
               <br />
-              <span>the next system</span>
+              the next system
             </h1>
             <p className="lede">
               Open to full-stack and backend-leaning roles. Based in {profile.location}.
@@ -134,8 +134,7 @@ export default function ContactPage() {
       <style jsx>{`
         .contact {
           min-height: calc(100vh - var(--nav-height));
-          background: var(--bg-primary);
-          padding: 64px 0 88px;
+          padding: 40px 0 88px;
         }
         .layout {
           display: grid;
@@ -146,9 +145,6 @@ export default function ContactPage() {
         h1 {
           font-size: clamp(36px, 5vw, 52px);
           margin-bottom: 16px;
-        }
-        h1 span {
-          color: var(--primary);
         }
         .lede {
           color: var(--text-secondary);
