@@ -65,7 +65,13 @@ export default function ProjectDetail({ project }: { project: Project }) {
             <span>{project.title}</span>
           </p>
           <span className="mono cat">{project.category}</span>
-          <h1>{project.title}</h1>
+          <div className="title-row">
+            {project.logo && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={project.logo} alt="" className="logo" width={48} height={48} />
+            )}
+            <h1>{project.title}</h1>
+          </div>
           <p className="desc">{project.longDescription}</p>
           <div className="tags">
             {project.tags.map((t) => (
@@ -315,9 +321,24 @@ export default function ProjectDetail({ project }: { project: Project }) {
           letter-spacing: 0.1em;
           text-transform: uppercase;
         }
+        .title-row {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          margin: 8px 0 14px;
+        }
+        .title-row .logo {
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
+          object-fit: cover;
+          border: 1px solid var(--border);
+          background: var(--bg-card);
+          flex-shrink: 0;
+        }
         h1 {
           font-size: clamp(36px, 5vw, 52px);
-          margin: 8px 0 14px;
+          margin: 0;
         }
         .desc {
           max-width: 720px;

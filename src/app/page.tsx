@@ -102,7 +102,13 @@ export default function Home() {
                     <span className="mono idx">PROJECT {String(i + 1).padStart(2, '0')}</span>
                     <span className="mono cat">{p.category}</span>
                   </div>
-                  <h3>{p.title}</h3>
+                  <h3>
+                    {p.logo && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={p.logo} alt="" className="logo" width={32} height={32} />
+                    )}
+                    <span>{p.title}</span>
+                  </h3>
                   <p>{p.description}</p>
                   <div className="card-actions">
                     <Link href={`/projects/${p.slug}`} className="view">
@@ -364,6 +370,18 @@ export default function Home() {
         .card h3 {
           font-size: 28px;
           margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
+        .card h3 :global(.logo) {
+          width: 32px;
+          height: 32px;
+          border-radius: 9px;
+          object-fit: cover;
+          border: 1px solid var(--border);
+          background: var(--bg-secondary);
+          flex-shrink: 0;
         }
         .card p {
           color: var(--text-secondary);

@@ -61,7 +61,13 @@ export default function ProjectsPage() {
                   </div>
                 </div>
                 <h2>
-                  <Link href={`/projects/${p.slug}`}>{p.title}</Link>
+                  <Link href={`/projects/${p.slug}`} className="title-row">
+                    {p.logo && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={p.logo} alt="" className="logo" width={36} height={36} />
+                    )}
+                    <span>{p.title}</span>
+                  </Link>
                 </h2>
                 <p>{p.description}</p>
                 <div className="tags">
@@ -155,8 +161,22 @@ export default function ProjectsPage() {
           font-size: 24px;
           margin-bottom: 10px;
         }
+        h2 :global(.title-row) {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+        }
+        h2 :global(.logo) {
+          width: 36px;
+          height: 36px;
+          border-radius: 10px;
+          object-fit: cover;
+          flex-shrink: 0;
+          border: 1px solid var(--border);
+          background: var(--bg-secondary);
+        }
         h2 :global(a):hover {
-          color: var(--primary);
+          color: var(--accent);
         }
         .card p {
           color: var(--text-secondary);
