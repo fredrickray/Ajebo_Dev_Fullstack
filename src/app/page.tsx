@@ -2,17 +2,13 @@
 
 import Link from 'next/link';
 import Reveal from '@/components/Reveal';
-import CanvasRuler, { LocalClock } from '@/components/CanvasRuler';
+import { LocalClock } from '@/components/CanvasRuler';
 import { profile } from '@/data/profile';
 import { featuredProjects } from '@/data/projects';
 
 export default function Home() {
   return (
     <>
-      <div className="top-pad">
-        <CanvasRuler />
-      </div>
-
       <section className="hero">
         <div className="container hero-wrap">
           <p className="clock-wrap">
@@ -165,9 +161,6 @@ export default function Home() {
       </section>
 
       <style jsx>{`
-        .top-pad {
-          padding-top: 8px;
-        }
         .hero {
           padding: 28px 0 72px;
           text-align: center;
