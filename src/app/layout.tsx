@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Outfit, Figtree, Caveat, IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
-import { Navbar, Footer } from '@/components';
+import { Navbar, Footer, CanvasPointer } from '@/components';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { profile } from '@/data/profile';
 
@@ -56,6 +56,7 @@ export default function RootLayout({
         className={`${display.variable} ${body.variable} ${script.variable} ${mono.variable} ${body.className}`}
       >
         <ThemeProvider>
+          <CanvasPointer />
           <Navbar />
           <main style={{ paddingTop: 'var(--nav-height)', minHeight: '100vh' }}>{children}</main>
           <Footer />
