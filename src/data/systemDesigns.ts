@@ -145,6 +145,35 @@ export const systemDesigns: Record<string, SystemDesign> = {
       trace: ['app', 'socket', 'session', 'mongo', 'session', 'socket', 'app'],
     },
   },
+
+  iris: {
+    flow: {
+      request: 'POST /chat { message, thread_id }',
+      caption:
+        'CLI, HTTP, or voice enters the LangGraph agent. Memory loads facts and relevant turns from SQLite; the LLM may call macOS tools, then streams a reply — voice path adds Whisper STT and TTS on the way out.',
+      nodes: [
+        { id: 'cli', label: 'CLI / Voice', sub: 'Rich · mic', col: 0, row: 0.4, kind: 'client' },
+        { id: 'api', label: 'FastAPI', sub: ':8420', col: 0, row: 1.8, kind: 'edge' },
+        { id: 'agent', label: 'LangGraph', sub: 'Agent loop', col: 1.2, row: 1.1, kind: 'service' },
+        { id: 'memory', label: 'Memory', sub: 'Facts · turns', col: 2.4, row: 0.2, kind: 'data' },
+        { id: 'tools', label: 'Mac Tools', sub: 'Apps · files · reminders', col: 2.4, row: 1.1, kind: 'service' },
+        { id: 'llm', label: 'LLM', sub: 'Ollama · cloud', col: 2.4, row: 2.2, kind: 'external' },
+        { id: 'sqlite', label: 'SQLite', sub: 'iris.db · checkpoints', col: 3.6, row: 0.2, kind: 'data' },
+        { id: 'voice', label: 'Voice I/O', sub: 'Whisper · TTS', col: 3.6, row: 2.2, kind: 'external' },
+      ],
+      edges: [
+        { from: 'cli', to: 'agent', label: 'message' },
+        { from: 'api', to: 'agent' },
+        { from: 'agent', to: 'memory', label: 'recall' },
+        { from: 'memory', to: 'sqlite' },
+        { from: 'agent', to: 'llm', label: 'complete' },
+        { from: 'agent', to: 'tools', label: 'tool call', dashed: true },
+        { from: 'cli', to: 'voice', label: 'STT/TTS', dashed: true },
+        { from: 'agent', to: 'cli', label: 'stream', dashed: true },
+      ],
+      trace: ['cli', 'agent', 'memory', 'sqlite', 'agent', 'llm', 'agent', 'cli'],
+    },
+  },
 };
 
 export function getSystemDesign(slug: string): SystemDesign | undefined {

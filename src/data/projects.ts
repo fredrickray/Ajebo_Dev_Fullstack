@@ -192,7 +192,7 @@ export const projects: Project[] = [
       'A microservice-based real estate management platform combining Web2 and Web3. Decentralized ownership verification via Ethereum smart contracts, hybrid email/password and wallet auth, plus web and mobile clients over a gRPC service cluster.',
     category: 'Systems',
     tags: ['Node.js', 'gRPC', 'React', 'MongoDB', 'PostgreSQL', 'Ethereum'],
-    featured: true,
+    featured: false,
     github: 'https://github.com/fredrickray/propspacex-api-gateway',
     logo: '/projects/propspacex/logo.svg',
     repos: [
@@ -309,7 +309,7 @@ export const projects: Project[] = [
       'A privacy-first live location sharing app. Users share location with a group only for a defined time window — not always-on tracking — with group chat, invites, and a live map over Socket.IO against a custom backend.',
     category: 'Mobile',
     tags: ['Expo', 'React Native', 'Socket.IO', 'Node.js', 'Auth'],
-    featured: true,
+    featured: false,
     github: 'https://github.com/fredrickray/EchoLoc',
     logo: '/projects/echoloc/logo.svg',
     repos: [
@@ -368,6 +368,74 @@ export const projects: Project[] = [
       'Full Expo/React Native app with timed sharing sessions',
       'Group creation, invites, and in-group chat',
       'Live map + Socket.IO; email and Google/Apple sign-in',
+    ],
+  },
+  {
+    id: 5,
+    slug: 'iris',
+    title: 'IRIS',
+    description:
+      'Personal AI assistant for your Mac — local LLMs, lasting memory, system tools, and on-device voice.',
+    longDescription:
+      'A laptop-native AI assistant that talks, remembers, and acts on macOS. LangGraph orchestrates the agent; Ollama (or Anthropic/OpenAI) powers replies; SQLite stores facts and searchable conversation turns. Optional voice: wake word, Whisper STT, and TTS via macOS say, OpenAI, or ElevenLabs. Tools let IRIS open apps, search files, manage Reminders, and read system info — with folder allowlists and Automation permissions.',
+    category: 'Tools',
+    tags: ['Python', 'LangGraph', 'FastAPI', 'Ollama', 'Whisper'],
+    featured: true,
+    github: 'https://github.com/fredrickray/IRIS',
+    logo: '/projects/iris/logo.svg',
+    media: {
+      video: '/projects/iris/demo.mp4',
+      screenshots: ['/projects/iris/shot-1.png', '/projects/iris/shot-2.png'],
+    },
+    layers: [
+      { label: 'Interfaces', items: ['CLI (Rich)', 'FastAPI HTTP', 'Voice session'] },
+      { label: 'Agent core', items: ['LangGraph', 'LangChain tools', 'LLM providers'] },
+      { label: 'Memory & voice', items: ['SQLite facts/turns', 'Whisper STT', 'TTS engines'] },
+    ],
+    architecture: ['CLI / Voice / API', 'LangGraph agent', 'Tools', 'LLM backend', 'SQLite memory'],
+    challenges: [
+      {
+        title: 'Local-first privacy',
+        description:
+          'Default stack is Ollama on-device — no cloud required. Cloud providers are opt-in via config and env overrides.',
+      },
+      {
+        title: 'Durable, forgettable memory',
+        description:
+          'Facts inject into every prompt; turns stay searchable. /forget and purge APIs remove facts and related archive text when you mean it.',
+      },
+      {
+        title: 'Safe Mac actions',
+        description:
+          'Tools are gated by settings and folder allowlists. Spotlight and AppleScript need explicit macOS Automation access.',
+      },
+      {
+        title: 'Voice without bloating chat',
+        description:
+          'Voice deps stay optional. Whisper, wake word, and TTS engines plug in without weighing down the core REPL and API.',
+      },
+    ],
+    tradeoffs: [
+      {
+        tech: 'Ollama default',
+        alternative: 'Cloud-only LLM',
+        reason: 'Offline and private by default; Anthropic/OpenAI remain one config switch away.',
+      },
+      {
+        tech: 'SQLite + FTS5',
+        alternative: 'Hosted vector DB',
+        reason: 'Zero ops on a laptop; optional nomic-embed-text upgrades recall without a network service.',
+      },
+      {
+        tech: 'LangGraph',
+        alternative: 'Ad-hoc prompt loop',
+        reason: 'Checkpoints, tool routing, and streaming come structured — critical once voice and tools stack on.',
+      },
+    ],
+    highlights: [
+      'Local Ollama (or Anthropic/OpenAI) with LangGraph agent loop',
+      'SQLite facts + turn archive with optional embeddings',
+      'macOS tools + optional wake word, Whisper, and multi-engine TTS',
     ],
   },
 ];
