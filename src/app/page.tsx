@@ -85,8 +85,8 @@ export default function Home() {
               works
             </h2>
             <p className="work-lede">
-              Desktop tools, ML decision systems, microservice platforms, and mobile — built end to
-              end.
+              A few highlights — desktop tools, ML systems, and a local AI assistant. See all work for
+              the full set.
             </p>
           </Reveal>
 
